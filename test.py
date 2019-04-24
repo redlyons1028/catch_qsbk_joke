@@ -20,7 +20,7 @@ try:
     for item in items:
         haveImg = re.search("img",item[2])
         if not haveImg:
-            print item[0],item[1],'none',item[3]
+            print item[0],item[1],'no photo',item[3]
         else:
             photo_url = re.findall(photoPattern, item[2])
             print item[0],item[1],photo_url[0],item[3]
