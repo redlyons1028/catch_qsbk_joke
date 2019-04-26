@@ -11,19 +11,18 @@ try:
     response = urllib2.urlopen(request)
     content = response.read().decode('utf-8')
     pattern = re.compile(
-        '<div.*?author.*?<a.*?<a.*?h2>(.*?)</h2>.*?<a.*?contentHerf.*?span>(.*?)</span>.*?'+
-        '-->(.*?)<div class="stats.*?number.*?>(.*?)</i>',
-        re.S)
+        '<div.*?author.*?<a.*?<a.*?h2>(.*?)</h2>.*?<a.*?contentHerf.*?span>(.*?)</span>.*?'
+        + '-->(.*?)<div class="stats.*?number.*?>(.*?)</i>', re.S)
     items = re.findall(pattern, content)
 
-    photoPattern = re.compile('<a.*?src="(.*?)".*?',re.S)
+    photoPattern = re.compile('<a.*?src="(.*?)".*?', re.S)
     for item in items:
-        haveImg = re.search("img",item[2])
+        haveImg = re.search("img", item[2])
         if not haveImg:
-            print item[0],item[1],'no photo',item[3]
+            print item[0], item[1], 'no photo', item[3]
         else:
             photo_url = re.findall(photoPattern, item[2])
-            print item[0],item[1],photo_url[0],item[3]
+            print item[0], item[1], photo_url[0], item[3]
 except urllib2.URLError, e:
     if hasattr(e, "code"):
         print e.code
